@@ -1,35 +1,42 @@
 import { Component } from '@angular/core';
 
+interface Nav {
+  link: string,
+  name: string,
+  exact: boolean,
+};
+
 @Component({
   selector: 'app-root',
   styleUrls: ['app.component.scss'],
   template: `
     <div class="app">
-      <passenger-viewer></passenger-viewer>
+      <nav class="nav">
+        <a *ngFor="let item of nav"
+        [routerLink]="item.link"
+        routerLinkActive="active"
+        [routerLinkActiveOptions] = "{ exact: item.exact }">{{ item.name }}</a>
+      </nav>
+      <router-outlet></router-outlet>
     </div>
   `
 })
 export class AppComponent {
-  title: string;
-  name: string = '';
-  numberOne: number = 1;
-  numberTwo: number = 2;
-  isHappy = true;
-
-  constructor() {
-    this.title = 'Ultimate Angular';
-  }
-
-  handleBlur(event) {
-    this.name = event.target.value;
-    console.log(event);
-  }
-
-  handleInput(event) {
-    this.name = event.target.value;
-  }
-
-  handleClick() {
-    this.name = 'Hill';
-  }
+  nav: Nav[] = [
+    {
+      link: '/',
+      name: 'Home',
+      exact: true
+    },
+    {
+      link: '/oops',
+      name: '404',
+      exact: false,
+    },
+    {
+      link: '/passengers',
+      name: 'Passengers',
+      exact: true,
+    },
+  ];
 }

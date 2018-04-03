@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
 import { PassengerDashboardComponent } from './containers/passenger-dashboard/passenger-dashboard.component';
 import { PassengerCountComponent } from './components/passenger-count/passenger-count.component';
@@ -10,6 +11,16 @@ import { PassengerViewerComponent } from './containers/passenger-viewer/passenge
 import { PassengerFormComponent } from './components/passenger-form/passenger-form.component';
 
 import { PassengerDashboardService } from './../services/passenger-dashboard.service';
+
+const routes: Routes = [
+  {
+    path: 'passengers',
+    children: [
+      { path: '', component: PassengerDashboardComponent },
+      { path: ':id', component: PassengerViewerComponent },
+    ],
+  }
+];
 
 @NgModule({
   declarations: [
@@ -23,10 +34,7 @@ import { PassengerDashboardService } from './../services/passenger-dashboard.ser
     CommonModule,
     HttpModule,
     FormsModule,
-  ],
-  exports: [
-    PassengerDashboardComponent,
-    PassengerViewerComponent,
+    RouterModule.forChild(routes),
   ],
   providers: [
     PassengerDashboardService,

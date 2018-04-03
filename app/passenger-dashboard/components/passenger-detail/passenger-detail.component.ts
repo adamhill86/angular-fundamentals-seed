@@ -9,8 +9,9 @@ import { Passenger } from '../../models/passenger.interface';
 export class PassengerDetailComponent {
   @Input() detail: Passenger;
 
-  @Output() remove: EventEmitter<any> = new EventEmitter();
-  @Output() edit: EventEmitter<any> = new EventEmitter();
+  @Output() remove: EventEmitter<Passenger> = new EventEmitter();
+  @Output() edit: EventEmitter<Passenger> = new EventEmitter();
+  @Output() view: EventEmitter<Passenger> = new EventEmitter();
 
   private editing: boolean = false;
 
@@ -30,5 +31,9 @@ export class PassengerDetailComponent {
 
   public onRemove() {
     this.remove.emit(this.detail);
+  }
+
+  public goToPassenger() {
+    this.view.emit(this.detail);
   }
 }
